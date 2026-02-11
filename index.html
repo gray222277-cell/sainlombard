@@ -93,11 +93,61 @@
             text-align: center; color: #444; font-size: 0.75rem;
         }
 
-        @media (max-width: 900px) {
-            .branches-layout { grid-template-columns: 1fr; height: auto; }
-            #list-container { height: 350px; }
-            .about-grid { grid-template-columns: 1fr; gap: 40px; }
-            header { padding: 20px; }
+        @media (max-width: 600px) {
+    header {
+        padding: 15px 15px; /* Зайг багасгах */
+        flex-direction: column; /* Лого болон цэсийг дээр дээрээс нь байрлуулах */
+        gap: 10px;
+        text-align: center;
+    }
+
+    nav {
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        gap: 10px;
+    }
+
+    nav a {
+        margin: 0 5px; /* Цэс хоорондын зайг жигдлэх */
+        font-size: 0.75rem;
+        padding: 5px 0;
+    }
+
+    .logo-top {
+        font-size: 1.3rem; /* Логоны хэмжээг утсанд тааруулж жижигсгэх */
+    }
+
+    .hero {
+        height: 40vh; /* Нүүр хэсгийг утсан дээр арай намхан болгох */
+    }
+
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+
+    .gold-section {
+        padding: 80px 15px 40px; /* Хажуу талын зайг багасгах */
+    }
+
+    .gold-price {
+        font-size: 2.2rem; /* Ханшны текстийг дэлгэцнээс гаргахгүй багтаах */
+    }
+
+    .branches-layout {
+        height: 800px; /* Утсан дээрх нийт өндөр */
+        grid-template-columns: 1fr;
+    }
+
+    #list-container {
+        height: 350px; /* Жагсаалтын өндрийг хязгаарлах */
+    }
+    
+    #map-box {
+        height: 400px; /* Газрын зургийг доор нь харагдахуйц байлгах */
+    }
+}
         }
     </style>
 </head>
@@ -262,4 +312,5 @@
         setMap(branches[0].lat, branches[0].lng);
     </script>
 </body>
+
 </html>
