@@ -298,24 +298,54 @@
             {"name": "Дэнжийн 1000", "addr": "Дэнжийн 1000-ын захын зүүн автобусны буудал, 12-р хороо, ЧД", "lat": 47.94546849, "lng": 106.9014948}
         ];
 
-        // Жишээ болгож эхний 10-ыг бичсэн бөгөөд 59 салбарыг жагсаахад бэлэн.
-        const container = document.getElementById('list-container');
-        const map = document.getElementById('main-map');
-
-        function setMap(lat, lng) {
-            map.src = `https://maps.google.com/maps?q=${lat},${lng}&z=16&output=embed`;
+        function getDistance(lat1, lon1, lat2, lon2) {
+            const R = 6371;
+            const dLat = (lat2 - lat1) * Math.PI / 180;
+            const dLon = (lon2 - lon1) * Math.PI / 180;
+            const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+                      Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
+                      Math.sin(dLon / 2) * Math.sin(dLon / 2);
+            return R * (2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a)));
         }
 
-        branches.forEach((b, i) => {
-            const div = document.createElement('div');
-            div.className = 'item' + (i === 0 ? ' active' : '');
-            div.innerHTML = `<h4>${b.name}</h4><p>${b.addr}</p>`;
-            div.onclick = () => {
-                document.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
-                div.classList.add('active');
-                setMap(b.lat, b.lng);
-            };
-            container.appendChild(div);
+        function displayBranches(userLat = null, userLng = null) {
+            const container = document.getElementById('list-container');
+            container.innerHTML = "";
+            let data = [...branches];
+
+            if (userLat && userLng) {
+                data.forEach(b => b.distance = getDistance(userLat, userLng, b.lat, b.lng));
+                data.sort((a, b) => a.distance - b.distance);
+                data = data.slice(0, 3);
+                const info = document.createElement('div');
+                info.style.padding = "15px"; info.style.color = "#ffcc00"; info.style.fontSize = "0.8rem";
+                info.innerHTML = "📍 ТАНД ХАМГИЙН ОЙР 3 САЛБАР";
+                container.appendChild(info);
+            }
+
+            data.forEach((b, i) => {
+                const div = document.createElement('div');
+                div.className = 'item' + (i === 0 ? ' active' : '');
+                const dist = b.distance ? `<span style="float:right;color:#ffcc00">${b.distance.toFixed(1)} км</span>` : "";
+                div.innerHTML = `<h4>${b.name} ${dist}</h4><p>${b.addr}</p>`;
+                div.onclick = () => {
+                    document.querySelectorAll('.item').forEach(el => el.classList.remove('active'));
+                    div.classList.add('active');
+                    document.getElementById('main-map').src = `https://maps.google.com/maps?q=${b.lat},${b.lng}&z=15&output=embed`;
+                };
+                container.appendChild(div);
+            });
+            document.getElementById('main-map').src = `https://maps.google.com/maps?q=${data[0].lat},${data[0].lng}&z=15&output=embed`;
+        }
+
+        function askLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    (p) => displayBranches(p.coords.latitude, p.coords.longitude),
+                    () => displayBranches()
+                );
+            } else { displayBranches(); }
+        }
         });
 
         // Анхдагч байршил
@@ -324,5 +354,6 @@
 </body>
 
 </html>
+
 
 
