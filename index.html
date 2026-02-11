@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Сайн Ломбард | Сайн сайхны төлөө</title>
     <style>
+        html, body {
+        max-width: 100%;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+    }
+    * {
+        box-sizing: border-box;
+    }
         :root {
             --brand-yellow: #ffcc00;
             --brand-black: #1b1b1b;
@@ -94,97 +103,62 @@
         }
 
         @media (max-width: 600px) {
-    /* 1. Цэсийг илүү жижиг, зай багатай болгох */
-    header {
-        padding: 10px 5px;
-        flex-direction: column;
-        gap: 8px;
-    }
-
-    .logo-top {
-        font-size: 1.2rem;
-    }
-
-    .logo-bottom {
-        display: none; /* Утсан дээр уриа үгийг нууж зай хэмнэнэ */
-    }
-
-    nav {
-        display: flex;
-        flex-wrap: wrap; /* Цэс багтахгүй бол дараагийн мөр рүү шилжинэ */
-        justify-content: center;
-        gap: 12px;
-    }
-
-    nav a {
-        margin: 0;
-        font-size: 0.75rem;
-        letter-spacing: 0;
-    }
-
-    /* 2. Бидний тухай хэсгийг цэсний доороос эхлүүлэх */
-    .hero {
-        height: auto;
-        min-height: 40vh;
-        padding: 120px 20px 40px; /* Дээрээс нь 120px зай авч цэсний доороос гаргана */
-    }
-
-    .hero h1 {
-        font-size: 1.8rem;
-        line-height: 1.2;
-    }
-
-    /* 3. Алтны ханш хэсэг */
-    .gold-section {
-        padding: 40px 15px;
-    }
-
-    .gold-container {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    .gold-card {
-        padding: 25px;
-    }
-
-    .gold-price {
-        font-size: 2.2rem;
-    }
-
-    .chart-box {
-        height: 250px; /* Графикийг утсан дээр арай намхан болгох */
-        padding: 15px;
-    }
-
-    /* 4. Салбарууд хэсэг */
-    #branches {
-        padding: 40px 15px;
-    }
-
-    .branches-layout {
-        display: flex;
-        flex-direction: column;
-        height: auto; /* Өндрийг автоматаар тохируулна */
-    }
-
-    #list-container {
-        height: 300px; /* Жагсаалтыг гүйдэг хэвээр үлдээнэ */
-    }
-
-    #map-box {
-        height: 350px; /* Газрын зураг доор нь тодорхой харагдана */
-    }
-
-    /* 5. Footer */
-    .footer-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 30px;
-    }
-}
+        header {
+            padding: 10px 5px;
+            flex-direction: column;
+            gap: 8px;
+            position: fixed; /* Цэсийг дээр нь түгжинэ */
         }
+
+        nav {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        nav a {
+            margin: 0 5px;
+            font-size: 0.7rem;
+        }
+
+        /* Бидний тухай (Hero) хэсгийг цэсний доороос гаргах */
+        .hero {
+            padding-top: 140px !important; /* Дээрээс нь их зай авна */
+            min-height: auto;
+        }
+
+        .hero h1 {
+            font-size: 1.6rem !important;
+        }
+
+        /* Бүх контейнерыг дэлгэцийн өргөнд багтаах */
+        .gold-container, .branches-layout, .container {
+            width: 100% !important;
+            padding: 0 15px !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Салбарын жагсаалт ба газрын зургийг дээр дээрээс нь өрөх */
+        .branches-layout {
+            height: auto !important;
+        }
+
+        #list-container {
+            width: 100% !important;
+            height: 300px !important;
+        }
+
+        #map-box {
+            width: 100% !important;
+            height: 350px !important;
+        }
+
+        .gold-price {
+            font-size: 2rem !important;
+        }
+    }
     </style>
 </head>
 <body>
@@ -350,4 +324,5 @@
 </body>
 
 </html>
+
 
